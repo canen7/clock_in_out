@@ -1,16 +1,7 @@
-// this is the controoler that the routes 
-//config file is gonna call methods from.
-//Exports is going to be an inmmediate function that
-//returns a js object with functions corresponsing to keys
-
-//first we require mongoose so that we can access the model stuff
-
-//var mongoose = require('mongoose');
-//this is the model that you are requiring 
-//typically 1-1 relationship with model
-//var Friend = mongoose.model('Friend');
-
-//start Exports
+//our routes config file will call methods from this file
+//this module exports an inmediate function that 
+//which returns an object with the name of the method 
+//as the "key" and the method to execute
 
 module.exports = (function() {
 	return{
