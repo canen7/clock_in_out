@@ -8,9 +8,8 @@ var path = require('path');
 // set the app variable 
 var app = express();
 
-// requiring config files for db and base configuration
-//var mongoose = require('./config/mongoose');
-var config = require('./config/config');
+
+//var config = require('./config/config');
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, './server/views'));
@@ -41,24 +40,15 @@ if ('development' == app.get('env')) {
 // load up and invoke the routes function returned as an export in routes.js found in the config folder
 var routes = require('./config/routes')(app);
 
-//set up musql connection
-var mysql = require('mysql')
-var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password : 'root',
-    port: 8889
-})
-connection.connect(function(err){
-console.log(err); // if we get null, everything is ok!
-    //connected! (unless 'err' is set)
-})
-connection.query('SELECT * FROM users_courses.courses', function (err, rows, fields) {
+var connection = require('./config/db.js')
+
+
+connection.query('SELECT * FROM clock_in_out.locations', function (err, rows, fields) {
     if (err) throw err;
     console.log('The name of the course is: ', rows[0].name, " and a nice description is: ", rows[0].description);
     console.log('and the rest of the courses with descriptions are ', rows)
 });
-connection.end();
+//connection.end();
 
 // set server to listen on the appropriate port
 app.listen(app.get('port'), function(){
